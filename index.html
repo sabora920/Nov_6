@@ -12,39 +12,26 @@
     <header>
         <h1>Food and Drink Quiz</h1>            
     </header>
+
+    <div id="startContent">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur accusamus explicabo quae natus consequatur odio expedita est, quod eum amet quasi. Deleniti vitae consequatur beatae porro. Culpa obcaecati pariatur quae!</p>
     
-    <div class="placeAndScore">
+        <button class="btnStartQuiz">Start Quiz</button>
+    </div>
+    
+    <div class="placeAndScore hidden">
         <div id="placeInQuiz">Question 1 out of 10</div>
         <div id="scoreInQuiz">Score: 0/10</div>
     </div>
 
-    <form id="quizContent">
-
-        <div class="questionsAndAnswers">
-            <span>Question?</span>
-        </div>
-        <div class="questionsAndAnswers">  
-            <input type="radio" name="multipleChoice" id="multipleChoice1">
-                <label for="multipleChoice1">Answer1</label>
-        </div>
-        <div class="questionsAndAnswers">
-            <input type="radio" name="multipleChoice" id="multipleChoice2">
-                <label for="multipleChoice2">Answer2</label>
-        </div>
-        <div class="questionsAndAnswers">
-            <input type="radio" name="multipleChoice" id="multipleChoice3">
-                <label for="multipleChoice3">Answer3</label>
-        </div>
-        <div class="questionsAndAnswers">
-            <input type="radio" name="multipleChoice" id="multipleChoice4">
-                <label for="multipleChoice4">Answer4</label>
-        </div>
-        
-        <div>
-            <button id="submitAnswerButton">Submit Answer</button>
-        </div>
+    <form id="quizContent" class="hidden">
 
     </form>
-
+    
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
