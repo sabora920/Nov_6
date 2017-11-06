@@ -5,8 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Food and Drink Quiz</title>
+    <link text="styles/css" href="styles.css">
 </head>
 <body>
     
+    <header>
+        <h1>Food and Drink Quiz</h1>            
+    </header>
+    
+    <div class="placeAndScore">
+        <div id="placeInQuiz">Question 1 out of 10</div>
+        <div id="scoreInQuiz">Score: 0/10</div>
+    </div>
+
+    <form id="quizContent">
+
+        <div class="questionsAndAnswers">
+            <span>Question?</span>
+        </div>
+        <div class="questionsAndAnswers">  
+            <input type="radio" name="multipleChoice" id="multipleChoice1">
+                <label for="multipleChoice1">Answer1</label>
+        </div>
+        <div class="questionsAndAnswers">
+            <input type="radio" name="multipleChoice" id="multipleChoice2">
+                <label for="multipleChoice2">Answer2</label>
+        </div>
+        <div class="questionsAndAnswers">
+            <input type="radio" name="multipleChoice" id="multipleChoice3">
+                <label for="multipleChoice3">Answer3</label>
+        </div>
+        <div class="questionsAndAnswers">
+            <input type="radio" name="multipleChoice" id="multipleChoice4">
+                <label for="multipleChoice4">Answer4</label>
+        </div>
+        
+        <div>
+            <button id="submitAnswerButton">Submit Answer</button>
+        </div>
+
+    </form>
+
 </body>
 </html>
