@@ -2,9 +2,6 @@
 
 const STORE = [
   {
-    startText: 'Think you\'re a foodie? Test your general knowledge on various questions and food and drink.'
-  },
-  {
     quest: 'What fruit is traditionally used in an Eve\'s pudding?',
     correctAnswer: 'apples',
     answersArr: [ 'pears', 'apples', 'raisins', 'lemon'],
@@ -23,8 +20,12 @@ const STORE = [
 ];
 
 
-function generateQuestions(currQuestionObj){
+function generateQuestions(currQuestionObj, questionIndex){
   return `
+    <div class="placeAndScore hidden">
+        <div id="placeInQuiz">Question ${questionIndex} out of ${STORE.length}</div>
+        <div id="scoreInQuiz">Score: 0/10</div>
+    </div>
     <div class="questionsAndAnswers">
         <span>${currQuestionObj.quest}</span>
     </div>
@@ -55,10 +56,12 @@ function renderHTMLQuestion(strQuestion){
 
 function handleQuestions(storeData){
   const storeCopy = storeData;
-  const html = generateQuestions(storeCopy[1]);
+  const html = generateQuestions(storeCopy[1], questionIndex);
   renderHTMLQuestion(html);
   //$( "input[type=radio][name=nultipleChoice]:checked" ).val();
 }
+
+
 
 function quizApp(){
   handleQuestions(STORE);
