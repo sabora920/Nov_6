@@ -211,8 +211,8 @@ function handleSubmitAnswer(){
         STORE.currentQuestion++;  
       }
     }else{
-        $('#quizContent').prepend(errorMessage);
-      }
+      $('#quizContent').prepend(errorMessage);
+    }
     console.log(STORE.currentQuestion);
   });
 }
