@@ -106,19 +106,19 @@ function generateQuestions(currQuestionArr, questionIndex){
         <span>${currentQuestionObj.quest}</span>
     </div>
     <div class="questionsAndAnswers">  
-        <input type="radio" name="multipleChoice" id="multipleChoice1" value="${currentQuestionObj.answersArr[0]}">
+        <input type="radio" name="multipleChoice" id="multipleChoice1" value="${currentQuestionObj.answersArr[0]}" required>
         <label for="multipleChoice1">${currentQuestionObj.answersArr[0]}</label>
     </div>
     <div class="questionsAndAnswers">
-        <input type="radio" name="multipleChoice" id="multipleChoice2" value="${currentQuestionObj.answersArr[1]}">
+        <input type="radio" name="multipleChoice" id="multipleChoice2" value="${currentQuestionObj.answersArr[1]}" required>
         <label for="multipleChoice2">${currentQuestionObj.answersArr[1]}</label>
     </div>
     <div class="questionsAndAnswers">
-        <input type="radio" name="multipleChoice" id="multipleChoice3" value="${currentQuestionObj.answersArr[2]}">
+        <input type="radio" name="multipleChoice" id="multipleChoice3" value="${currentQuestionObj.answersArr[2]}" required>
         <label for="multipleChoice3">${currentQuestionObj.answersArr[2]}</label>
     </div>
     <div class="questionsAndAnswers">
-        <input type="radio" name="multipleChoice" id="multipleChoice4" value="${currentQuestionObj.answersArr[3]}">
+        <input type="radio" name="multipleChoice" id="multipleChoice4" value="${currentQuestionObj.answersArr[3]}" required>
         <label for="multipleChoice4">${currentQuestionObj.answersArr[3]}</label>
     </div>
     <div>
@@ -150,6 +150,21 @@ function generateWrongFeedback(currQuestionArr, questionIndex){
     `;
 }
 
+function generatePassResultPage(){
+  return `
+  <h2>Congratulations! You are a master Culinary Artist!</h2>
+  <p>Your Score was ${STORE.score/STORE.questions.length*100}%</p>     
+  <button class="startNewQuiz">Start New Quiz</button>
+  `;
+}
+
+function generateFailResultPage(){
+  return `
+  <h2>You got Burned! Watch some FOOD Network and try again!</h2>
+  <p>Your Score was ${STORE.score/STORE.questions.length*100}%</p>     
+  <button class="startNewQuiz">Start New Quiz</button>
+  `;
+}
 
 function renderHTML(strQuestion){
   $('#quizContent').html(strQuestion);
@@ -170,23 +185,34 @@ function handleRightFeedback(storeData){
   renderHTML(rightHTML);
 }
 
+function handlePassResultPage(storeData){
+  const passHTML = generatePassResultPage();
+  renderHTML(passHTML);
+}
+
+function handleFailResultPage(storedata){
+  const failHTML = generateFailResultPage();
+  renderHTML(failHTML);
+}
+
 function handleSubmitAnswer(){
   $('form').on('click', '#submitAnswerButton', function(event){
     event.preventDefault();
     const submittedAnswer = $('input[type=radio][name=multipleChoice]:checked').val();
-    
-    //console.log(STORE.currentQuestion);
-    //console.log(STORE.questions.length);
+    const errorMessage= 'You must fill in an answer';
 
-    if(STORE.questions[STORE.currentQuestion].correctAnswer === submittedAnswer){
-      STORE.score++;
-      //console.log(STORE.score);
-      handleRightFeedback(STORE);
-      STORE.currentQuestion++;  
-    } else {
-      handleWrongFeedback(STORE);
-      STORE.currentQuestion++;  
-    }
+    if(submittedAnswer !== undefined){
+      if(STORE.questions[STORE.currentQuestion].correctAnswer === submittedAnswer){
+        STORE.score++;
+        handleRightFeedback(STORE);
+        STORE.currentQuestion++;  
+      } else {
+        handleWrongFeedback(STORE);
+        STORE.currentQuestion++;  
+      }
+    }else{
+        $('#quizContent').prepend(errorMessage);
+      }
     console.log(STORE.currentQuestion);
   });
 }
@@ -200,9 +226,17 @@ function handleStartQuizBtn(){
 
 function handleNextQuestionBtn(){
   $('form').on('click', '.btnNextQuestion', function(event){
-    event.preventDefault();
-    console.log(STORE.currentQuestion);  
-    handleQuestions(STORE);
+    if(STORE.currentQuestion < 10){
+      event.preventDefault();
+      console.log(STORE.currentQuestion);  
+      handleQuestions(STORE);
+    } else {
+      if(STORE.score >= 7){
+        handlePassResultPage(STORE);
+      } else if(STORE.score < 7){
+        handleFailResultPage(STORE);
+      }
+    }
   });
 }
 
