@@ -100,7 +100,7 @@ function generateQuestions(currQuestionArr, questionIndex){
   return `
     <div class="placeAndScore hidden">
         <div id="placeInQuiz">Question ${questionIndex + 1} out of ${currQuestionArr.length}</div>
-        <div id="scoreInQuiz">Score: ${STORE.score}/${currQuestionArr.length}</div>
+        <div id="scoreInQuiz">You've answered ${STORE.score} questions correctly.</div>
     </div>
     <div class="questionsAndAnswers">
         <span>${currentQuestionObj.quest}</span>
@@ -131,7 +131,7 @@ function generateRightFeedback(currQuestionArr, questionIndex){
   return `
         <div class="feedBack">
             <div id="placeInQuiz">Question ${questionIndex + 1} out of ${currQuestionArr.length}</div>
-            <div id="scoreInQuiz">Score: ${STORE.score}/${currQuestionArr.length}</div>
+            <div id="scoreInQuiz">You've answered ${STORE.score} questions correctly.</div>
             <p>Cheers! You Are Right!</p>
             <button class="btnNextQuestion">Go to the next Question</button>
         </div>
@@ -143,7 +143,7 @@ function generateWrongFeedback(currQuestionArr, questionIndex){
   return `
     <div class="feedBack">
         <div id="placeInQuiz">Question ${questionIndex + 1} out of ${currQuestionArr.length}</div>
-        <div id="scoreInQuiz">Score: ${STORE.score}/${currQuestionArr.length}</div>
+        <div id="scoreInQuiz">You've answered ${STORE.score} questions correctly.</div>
         <p>You've been Chopped! The correct answer was ${STORE.questions[questionIndex].correctAnswer}</>
         <button class="btnNextQuestion">Go to the next Question</button>
     </div>
@@ -191,6 +191,13 @@ function handleSubmitAnswer(){
   });
 }
 
+function handleStartQuizBtn(){
+  $('form').on('click', '.btnStartQuiz', function(event){
+    event.preventDefault();
+    handleQuestions(STORE);
+  });
+}
+
 function handleNextQuestionBtn(){
   $('form').on('click', '.btnNextQuestion', function(event){
     event.preventDefault();
@@ -201,7 +208,8 @@ function handleNextQuestionBtn(){
 
 function quizApp(){
   handleStartPage();
-  handleQuestions(STORE);
+  handleStartQuizBtn();
+  //handleQuestions(STORE);
   handleSubmitAnswer();
   handleNextQuestionBtn();
 }
