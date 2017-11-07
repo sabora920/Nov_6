@@ -32,7 +32,7 @@ function generateQuestions(currQuestionArr, questionIndex){
   return `
     <div class="placeAndScore hidden">
         <div id="placeInQuiz">Question ${questionIndex + 1} out of ${currQuestionArr.length}</div>
-        <div id="scoreInQuiz">Score: 0/10</div>
+        <div id="scoreInQuiz">Score: ${STORE.score}/${currQuestionArr.length}</div>
     </div>
     <div class="questionsAndAnswers">
         <span>${currentQuestionObj.quest}</span>
@@ -58,31 +58,71 @@ function generateQuestions(currQuestionArr, questionIndex){
     </div>`;
 }
 
-function renderHTMLQuestion(strQuestion){
+function generateRightFeedback(currQuestionArr, questionIndex){
+
+    return `
+        <div class="feedBack">
+            <div id="placeInQuiz">Question ${questionIndex + 1} out of ${currQuestionArr.length}</div>
+            <div id="scoreInQuiz">Score: ${STORE.score}/${currQuestionArr.length}</div>
+            <p>Cheers! You Are Right!</p>
+            <button>Go to the next Question</button>
+        </div>
+    `;
+}
+
+function generateWrongFeedback(currQuestionArr, questionIndex){
+  
+    return `
+    <div class="feedBack">
+        <div id="placeInQuiz">Question ${questionIndex + 1} out of ${currQuestionArr.length}</div>
+        <div id="scoreInQuiz">Score: ${STORE.score}/${currQuestionArr.length}</div>
+        <p>You've been Chopped! The correct answer was ${STORE.questions.correctAnswer}</>
+        <button>Go to the next Question</button>
+    </div>
+    `;
+}
+
+function renderHTML(strQuestion){
   $('#quizContent').html(strQuestion);
 }
 
 function handleQuestions(storeData){
   const html = generateQuestions(storeData.questions, storeData.currentQuestion);
-  renderHTMLQuestion(html);
-  
+  renderHTML(html);
+}
+
+function handleWrongFeedback(storeData){
+    const wrongHTML = generateWrongFeedback(storeData.questions, storeData.currentQuestion);
+    renderHTML(wrongHTML);
+}
+
+function handleRightFeedback(storeData){
+    const rightHTML = generateRightFeedback(storeData.questions, storeData.currentQuestion);
+    renderHTML(rightHTML);
 }
 
 function handleSubmitAnswer(){
   $('#submitAnswerButton').on('click', function(event){
+    event.preventDefault();
     const submittedAnswer = $('input[type=radio][name=multipleChoice]:checked').val();
-    if(STORE.questions[STORE.currentQuestion].correctAnswer === submittedAnswer){
-      STORE.score++;
-      console.log(STORE.score);
-    }
     
-    STORE.currentQuestion++;
-    handleQuestions(STORE);
+    console.log(STORE.currentQuestion);
+    console.log(STORE.questions.length);
+
+        if(STORE.questions[STORE.currentQuestion].correctAnswer === submittedAnswer){
+            STORE.score++;
+            console.log(STORE.score);
+            // STORE.currentQuestion++;
+            handleRightFeedback(STORE);
+        } else {
+            // STORE.currentQuestion++;
+            handleWrongFeedback(STORE);
+        }
   });
 }
 
-function handleCheckAnswer(){
-
+function handleNextQuestionBtn(){
+    
 }
 
 function quizApp(){
