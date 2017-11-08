@@ -85,9 +85,7 @@ function handleStartPage(){
 }
 
 function generateStartPage(){
-  return `
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur accusamus explicabo quae natus consequatur odio expedita est, quod eum amet quasi. Deleniti vitae consequatur beatae porro. Culpa obcaecati pariatur quae!</p>
-    
+  return `    
     <button class="btnStartQuiz">Start Quiz</button>
     `;
 }
@@ -144,7 +142,7 @@ function generateWrongFeedback(currQuestionArr, questionIndex){
     <div class="feedBack">
         <div id="placeInQuiz">Question ${questionIndex + 1} out of ${currQuestionArr.length}</div>
         <div id="scoreInQuiz">You've answered ${STORE.score} questions correctly.</div>
-        <p>You've been Chopped! The correct answer was ${STORE.questions[questionIndex].correctAnswer}</>
+        <p>You've been Chopped! The correct answer was ${STORE.questions[questionIndex].correctAnswer}</p>
         <button class="btnNextQuestion">Go to the next Question</button>
     </div>
     `;
@@ -199,7 +197,7 @@ function handleSubmitAnswer(){
   $('form').on('click', '#submitAnswerButton', function(event){
     event.preventDefault();
     const submittedAnswer = $('input[type=radio][name=multipleChoice]:checked').val();
-    const errorMessage= 'You must fill in an answer';
+    const errorMessage= '<p class="errorMessage">You must fill in an answer</p>';
 
     if(submittedAnswer !== undefined){
       if(STORE.questions[STORE.currentQuestion].correctAnswer === submittedAnswer){
